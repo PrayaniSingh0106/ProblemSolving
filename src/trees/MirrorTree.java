@@ -14,7 +14,7 @@ class TNode {
 }
 
 public class MirrorTree {
-	
+	TNode root;
 	public static TNode findMirror(TNode root) {
 		
 		if(root==null)
@@ -45,12 +45,13 @@ public class MirrorTree {
 	
 	public static void main(String[] args) {
 		
-		TNode root = new TNode(1);
-		root.left = new TNode(3);
-		root.right = new TNode(2);
-		root.right.left = new TNode(5);
-		root.right.right = new TNode(4);
-		TNode newRoot = findMirror(root);	
+		MirrorTree obj = new MirrorTree();
+		obj.root = new TNode(1);
+		obj.root.left = new TNode(3);
+		obj.root.right = new TNode(2);
+		obj.root.right.left = new TNode(5);
+		obj.root.right.right = new TNode(4);
+		TNode newRoot = findMirror(obj.root);	
 		inOrder(newRoot);
 	}
 	
