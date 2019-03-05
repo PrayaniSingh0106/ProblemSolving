@@ -29,9 +29,6 @@ public class LinkListPalindrome {
 			pre=pre.next;
 			
 		}
-		
-		
-		
 		return true;
 
 	}
