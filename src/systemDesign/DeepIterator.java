@@ -44,6 +44,7 @@ public class DeepIterator implements Iterator<Integer> {
 
 	@Override
 	public Integer next() throws NoSuchElementException {
+
 		if (hasNext()) {
 			Integer tmp = this.top;
 			this.top = null;
