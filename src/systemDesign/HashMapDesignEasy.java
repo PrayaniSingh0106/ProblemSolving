@@ -27,6 +27,10 @@ public class HashMapDesignEasy {
 	 */
 	public int get(int key) {
 		int index = getIndex(key);
+		
+		if(n[index] == null)
+			return -1;
+		
 		ListNode prev = findElement(n[index], key);
 		return prev.next == null ? -1 : prev.next.val;
 	}
@@ -89,7 +93,7 @@ public class HashMapDesignEasy {
 		hmap.put(3, 10);
 		hmap.put(4, 20);
 
-		int param1 = hmap.get(3);
+		int param1 = hmap.get(31);
 		System.out.println(" param1 " + param1);
 	}
 }
