@@ -1,4 +1,4 @@
-package Intuit;
+package trees;
 
 class LNode {
 	LNode next;

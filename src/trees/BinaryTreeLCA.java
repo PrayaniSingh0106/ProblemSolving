@@ -1,4 +1,4 @@
-package Intuit;
+package trees;
 
 class TreeNode{
 	TreeNode left, right;

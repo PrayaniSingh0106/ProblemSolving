@@ -1,4 +1,4 @@
-package Intuit;
+package trees;
 
 public class IsBST {
 
