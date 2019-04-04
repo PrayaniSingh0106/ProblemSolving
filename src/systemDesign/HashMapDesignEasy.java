@@ -8,7 +8,11 @@ public class HashMapDesignEasy {
 	public void put(int key, int value) {
 
 		int index = getIndex(key);
-		ListNode prev = findElement(key, index);
+
+		if (n[index] == null)
+			n[index] = new ListNode(-1, -1);
+
+		ListNode prev = findElement(n[index], key);
 
 		if (prev.next == null) {
 			prev.next = new ListNode(key, value);
@@ -23,7 +27,7 @@ public class HashMapDesignEasy {
 	 */
 	public int get(int key) {
 		int index = getIndex(key);
-		ListNode prev = findElement(key, index);
+		ListNode prev = findElement(n[index], key);
 		return prev.next == null ? -1 : prev.next.val;
 	}
 
@@ -32,9 +36,13 @@ public class HashMapDesignEasy {
 	 * for the key
 	 */
 	public void remove(int key) {
+
 		int index = getIndex(key);
 
-		ListNode prev = findElement(key, index);
+		if (n[index] == null)
+			return;
+
+		ListNode prev = findElement(n[index], key);
 
 		if (prev.next != null) {
 			prev.next = prev.next.next;
@@ -45,20 +53,20 @@ public class HashMapDesignEasy {
 		return Integer.hashCode(key) % n.length;
 	}
 
-	public ListNode findElement(int key, int index) {
+	public ListNode findElement(ListNode bucket, int key) {
 
-		if (n[index] == null)
-			return n[index] = new ListNode(-1, -1);
+		ListNode node = bucket;
 
-		ListNode prev = n[index];
+		ListNode prev = null;
 
-		while (prev.next != null && prev.next.key != key) {
-			prev = prev.next;
+		while (node != null && node.key != key) {
+			prev = node;
+			node = node.next;
 		}
 		return prev;
 	}
 
-	private static class ListNode {
+	class ListNode {
 		int val;
 		ListNode next;
 		int key;
@@ -75,4 +83,13 @@ public class HashMapDesignEasy {
 	 * = new MyHashMap(); obj.put(key,value); int param_2 = obj.get(key);
 	 * obj.remove(key);
 	 */
+	public static void main(String[] args) {
+
+		HashMapDesignEasy hmap = new HashMapDesignEasy();
+		hmap.put(3, 10);
+		hmap.put(4, 20);
+
+		int param1 = hmap.get(3);
+		System.out.println(" param1 " + param1);
+	}
 }
