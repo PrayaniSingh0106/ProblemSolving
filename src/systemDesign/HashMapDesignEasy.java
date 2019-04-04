@@ -1,6 +1,6 @@
-package leetCode;
+package systemDesign;
 
-public class HashMapDesign {
+public class HashMapDesignEasy {
 
 	ListNode[] n = new ListNode[10000];
 
