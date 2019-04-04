@@ -1,5 +1,6 @@
 package trees;
 
+//FOR PERFECT UNDERSTANDING
 class TNode {
 	TNode left;
 	TNode right;
@@ -19,12 +20,14 @@ public class MirrorTree {
 		if(root==null)
 			return null;
 		
+		System.out.println("Calling left of root " + root.val);
 		TNode left = findMirror(root.left);
+		System.out.println("Calling right of root " + root.val);
 		TNode right = findMirror(root.right);
-			
+			System.out.println(" Comes to root: " + root.val);
 		root.left = right;
 		root.right = left;
-		
+		System.out.println("Returning root from last " + root.val);
 		return root;
 	}
 	
