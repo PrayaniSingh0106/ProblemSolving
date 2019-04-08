@@ -7,35 +7,48 @@ import java.util.NoSuchElementException;
 import java.util.Stack;
 
 public class DeepIterator implements Iterator<Integer> {
+	@SuppressWarnings("rawtypes")
 	private Stack stack = new Stack<>();
 	private Integer top = null;
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public DeepIterator(Iterable nestedList) {
+		// Iterator on the overall list. Some would be integers or list or list of list.
+		// Later, we have to store iterator over only lists by traversing in hasNext()
 		this.stack.push(nestedList.iterator());
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public boolean hasNext() {
 
 		if (this.top != null)
 			return true;
 
+		// while stack is not empty
 		while (!this.stack.isEmpty()) {
+
+			// An iterator for the top element of stack
 			Iterator tmpIterator = (Iterator) this.stack.peek();
 
+			// Iterating over the top element and checking if it itsels is an iterator or an
+			// integer
 			if (tmpIterator.hasNext()) {
 				Object tmp = tmpIterator.next();
 				// If tmp is an integer
 				if (tmp instanceof Integer) {
 					this.top = (Integer) tmp;
 					return true;
-				} // If tmp is an nested list
+				} // If tmp is a nested list, we push the iterator
 				else if (tmp instanceof Iterable) {
 					this.stack.push(((Iterable) tmp).iterator());
 				} else {
 					throw new RuntimeException("Unsupported data type. ");
 				}
-			} else {
+			}
+			// if tmpIterator(top of stack) points to no element, we pop the top of stack
+			// until we get to the point where we have elements
+			else {
 				this.stack.pop();
 			}
 		}
@@ -45,6 +58,8 @@ public class DeepIterator implements Iterator<Integer> {
 	@Override
 	public Integer next() throws NoSuchElementException {
 
+		// keeps traversing the list of list and returning the "top" element and
+		// flattens the list of list, by calling hasnext
 		if (hasNext()) {
 			Integer tmp = this.top;
 			this.top = null;
@@ -59,12 +74,14 @@ public class DeepIterator implements Iterator<Integer> {
 		throw new UnsupportedOperationException("This is not supported right now.");
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void main(String[] args) {
 		List list1 = new LinkedList();
 		list1.add(0);
 		list1.add(new LinkedList<Integer>());
 		list1.add(1);
 		list1.add(new LinkedList<Integer>());
+
 		List list2 = new LinkedList();
 		list2.add(list1);
 		list2.add(2);
@@ -93,13 +110,16 @@ public class DeepIterator implements Iterator<Integer> {
 		list1.add(new LinkedList<Integer>());
 		list1.add(1);
 		list1.add(new LinkedList<Integer>());
+
 		list2 = new LinkedList();
 		list2.add(list1);
 		list2.add(2);
+
 		List<Integer> list3 = new LinkedList<Integer>();
 		list3.add(3);
 		list3.add(4);
 		list3.add(5);
+
 		List list4 = new LinkedList();
 		list4.add(list2);
 		list4.add(list3);
