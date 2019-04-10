@@ -1,5 +1,7 @@
 package WePay;
 
+
+//Compleixty same as tree traversal : O(n)
 //FOR PERFECT UNDERSTANDING
 class TNode {
 	TNode left;
