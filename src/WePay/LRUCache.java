@@ -63,12 +63,13 @@ public class LRUCache {
 
 	public int get(int key) {
 
+		// get operation is quick using hashmap
 		DLinkedList node = hmap.get(key);
 
 		if (node == null)
 			return -1;
 
-		moveToTop(node);
+		this.moveToTop(node);
 
 		return node.val;
 	}
